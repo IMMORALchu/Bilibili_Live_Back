@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+require_once dirname(__FILE__) . '/../public/init.php';
+
+class MyCLI extends PhalApi\CLI\Lite {
+
+    // 自定义帮助说明
+    protected function getHelpText($text) {
+        // 在原有的帮助说明，后面追加自己的文字  
+        $context = "--- 自定义的帮助说明 ---" . PHP_EOL;
+
+        return $text . PHP_EOL . $context;
+    }
+
+    // 提供接口列表，service -> 接口功能说明
+    protected function getServiceList() {
+        return array(
+            1 => ['App.Hello.World', '演示接口'],
+        );
+    }
+}
+
+$cli = new MyCLI();
+$cli->response();
+
